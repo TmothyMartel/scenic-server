@@ -11,8 +11,9 @@ const { Locations } = require("./models");
 const jwtAuth = passport.authenticate("jwt", { session: false });
 
 //routes
-router.get("/", jwtAuth, (req, res) => {
-	Locations.find({ user: req.user.id })
+router.get("/", (req, res) => {
+	// Locations.find({ user: req.user.id })
+	Locations.find()
 		.limit(10)
 		.then(locations => {
 			res.json({
@@ -35,7 +36,7 @@ router.get("/:id", (req, res) => {
 });
 
 // post route
-router.post("/", jwtAuth, jsonParser, (req, res) => {
+router.post("/", jsonParser, (req, res) => {
 	const requiredFields = ["title", "description", "image"];
 	requiredFields.forEach(field => {
 		if (!(field in req.body)) {
@@ -46,7 +47,7 @@ router.post("/", jwtAuth, jsonParser, (req, res) => {
 	});
 
 	Locations.create({
-		user: req.user.id,
+		// user: req.user.id,
 		title: req.body.title,
 		image: req.body.image,
 		description: req.body.description,

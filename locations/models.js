@@ -21,11 +21,7 @@ const LocationSchema = mongoose.Schema({
 		latitude: { type: Number },
 		longitude: { type: Number }
 	},
-	photoTips: { type: String, default: "" }
-});
-
-LocationSchema.virtual("coords").get(function() {
-	return `${this.latitude}, ${this.longitude}`;
+	photoTips: [{ type: String }]
 });
 
 LocationSchema.methods.serialize = function() {
@@ -34,17 +30,9 @@ LocationSchema.methods.serialize = function() {
 		title: this.title,
 		description: this.description,
 		image: this.image,
-		coordinates: this.coords,
-		photoTips: this.photoTips || ""
+		coordinates: this.coordinates,
+		photoTips: this.photoTips || []
 	};
-};
-
-LocationSchema.methods.validatePassword = function(password) {
-	return bcrypt.compare(password, this.password);
-};
-
-LocationSchema.statics.hashPassword = function(password) {
-	return bcrypt.hash(password, 8);
 };
 
 const Locations = mongoose.model("Location", LocationSchema);
