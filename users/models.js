@@ -14,15 +14,18 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  firstName: { type: String, default: "" },
-  lastName: { type: String, default: "" }
+  name: { type: String, default: "" },
+  email: { type: String, required: true },
+  about: { type: String },
+  imageUrl: { type: String, default: "../public/images/user.svg" }
 });
 
 UserSchema.methods.serialize = function() {
   return {
     username: this.username || "",
-    firstName: this.firstName || "",
-    lastName: this.lastName || ""
+    name: this.name || "",
+    about: this.about || "",
+    imageUrl: this.imageUrl
   };
 };
 
