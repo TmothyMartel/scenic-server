@@ -7,6 +7,6 @@ deploy:
   provider: heroku
   api_key:
     secure: vQPGvpYu56ag0Hp91VtSNtJtjYHH/HrpPe7FHdGp5ICdq1+Lp7Nbh3+4RsYhHjdinVp5KFRfCiDC37tDq4n62e8GFbHG/WUhC7xpj5v1oKBZculZ8s08Kmn7Y8DqOAP26H1yClaVFRMIWZzqfXMWsIJ+TloEcsK5GZEaahLgJkv/FQ7aJy3PPOJBvnPb+1hgIA+ujnWO8t18pIKjTRWkXbYFM9WFxFx2j9olsZvCSP8at7lHqUNe0Ic51pypHAHiIirseQtlaO/3oqRYmH/2HZRLoPlR42uZh5clsd3SdiIuqhXIEFsk67gL+rpa4l3f0ASNaY592ZQMcv3eZnkdvtWU6mY3j1XiihaY47BpnvbdXAHEq9ChLK5kN1DxBHAyVoAl0wiDLpJ+019rJCjzDCxaWwKZb454WpGgrDqFYMHYivky9/9aLakZFRqzOcSObt6nFYpyfGqzlobOuNMovFMvLAcxcekfRLPdQmbHVmrmrKsDvQw9J2EwC2+hQHODZVrh4UqMC5VWF77bPGwi226zyFW+CrK6dalReSRHVmdmgpSKWSNTp4exknN62J/zKDfIMvLB2NREvNJGTBz1uHR2ThxA6jVKp64mX+1e+JJze0WgxGXEBpfuWvGQFSBj/Go9BhdsLHyw38BdYwn31Uj/Pz+WmPO3Z00kOj5gjgE=
-  app: https://git.heroku.com/fast-reef-80908.git
+  app: scenic-server
   on:
     repo: TmothyMartel/scenic-server
