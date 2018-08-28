@@ -18,8 +18,10 @@ chai.use(chaiHttp);
 describe('Protected endpoint', function () {
   const username = 'exampleUser';
   const password = 'examplePass';
-  const firstName = 'Example';
-  const lastName = 'User';
+  const name = 'Example';
+  const email = 'User@example.com';
+  const about = 'user info';
+  const imageUrl = 'image location';
 
   before(function () {
     return runServer(TEST_DATABASE_URL);
@@ -35,13 +37,15 @@ describe('Protected endpoint', function () {
         username,
         password,
         name,
-        email
+        email,
+        about,
+        imageUrl
       })
     );
   });
 
   afterEach(function () {
-    return User.remove({});
+    return User.deleteMany({});
   });
 
   describe('/api/protected', function () {
@@ -67,7 +71,9 @@ describe('Protected endpoint', function () {
         {
           username,
           name,
-          email
+          email,
+          about,
+          imageUrl
         },
         'wrongSecret',
         {
@@ -98,7 +104,9 @@ describe('Protected endpoint', function () {
           user: {
             username,
             name,
-            email
+            email,
+            about,
+            imageUrl
           },
           exp: Math.floor(Date.now() / 1000) - 10 // Expired ten seconds ago
         },
@@ -131,7 +139,9 @@ describe('Protected endpoint', function () {
           user: {
             username,
             name,
-            email
+            email,
+            about,
+            imageUrl
           }
         },
         JWT_SECRET,

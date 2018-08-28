@@ -26,7 +26,7 @@ router.get("/", jwtAuth, (req, res) => {
 		});
 });
 
-router.get("/:id",  (req, res) => {
+router.get("/:id", jwtAuth,  (req, res) => {
 	Locations.findById(req.params.id)
 		.then(location => res.json(location.serialize()))
 		.catch(error => {
