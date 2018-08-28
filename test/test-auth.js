@@ -18,8 +18,10 @@ chai.use(chaiHttp);
 describe('Auth endpoints', function () {
   const username = 'exampleUser';
   const password = 'examplePass';
-  const email = 'Example@email.com';
-  const about = 'User info';
+  const name = 'Example';
+  const about = "about user";
+  const email = 'example@email.com';
+  const imageUrl = "../public/images/user.svg";
 
   before(function () {
     return runServer(TEST_DATABASE_URL);
@@ -35,13 +37,15 @@ describe('Auth endpoints', function () {
         username,
         password,
         email,
+        name,
+        imageUrl,
         about
       })
     );
   });
 
   afterEach(function () {
-    return User.remove({});
+    return User.deleteMany({});
   });
 
   describe('/api/auth/login', function () {
@@ -203,6 +207,9 @@ describe('Auth endpoints', function () {
           user: {
             username,
             email,
+            about,
+            name,
+            imageUrl,
             about
           }
         },

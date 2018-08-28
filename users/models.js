@@ -23,6 +23,7 @@ const UserSchema = mongoose.Schema({
 UserSchema.methods.serialize = function() {
   return {
     username: this.username || "",
+    email: this.email,
     name: this.name || "",
     about: this.about || "",
     imageUrl: this.imageUrl

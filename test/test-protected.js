@@ -34,8 +34,8 @@ describe('Protected endpoint', function () {
       User.create({
         username,
         password,
-        firstName,
-        lastName
+        name,
+        email
       })
     );
   });
@@ -66,8 +66,8 @@ describe('Protected endpoint', function () {
       const token = jwt.sign(
         {
           username,
-          firstName,
-          lastName
+          name,
+          email
         },
         'wrongSecret',
         {
@@ -97,8 +97,8 @@ describe('Protected endpoint', function () {
         {
           user: {
             username,
-            firstName,
-            lastName
+            name,
+            email
           },
           exp: Math.floor(Date.now() / 1000) - 10 // Expired ten seconds ago
         },
@@ -130,8 +130,8 @@ describe('Protected endpoint', function () {
         {
           user: {
             username,
-            firstName,
-            lastName
+            name,
+            email
           }
         },
         JWT_SECRET,
