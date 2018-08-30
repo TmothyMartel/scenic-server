@@ -21,7 +21,11 @@ const LocationSchema = mongoose.Schema({
 		latitude: { type: Number },
 		longitude: { type: Number }
 	},
-	photoTips: [{ type: String }]
+	photoTips: [{ type: String }],
+	user: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User"
+	}
 });
 
 LocationSchema.methods.serialize = function() {

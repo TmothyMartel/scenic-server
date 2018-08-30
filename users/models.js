@@ -1,7 +1,7 @@
 "use strict";
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-
+const defaultImage = "./images/user.svg";
 mongoose.Promise = global.Promise;
 
 const UserSchema = mongoose.Schema({
@@ -17,7 +17,7 @@ const UserSchema = mongoose.Schema({
   name: { type: String, default: "" },
   email: { type: String, required: true },
   about: { type: String },
-  imageUrl: { type: String, default: "../public/images/user.svg" }
+  imageUrl: { type: String, default: defaultImage }
 });
 
 UserSchema.methods.serialize = function() {
