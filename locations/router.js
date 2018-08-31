@@ -26,7 +26,7 @@ router.get("/", jwtAuth, (req, res) => {
 		});
 });
 
-router.get("/:id", jwtAuth,  (req, res) => {
+router.get("/:id", jwtAuth, (req, res) => {
 	Locations.findById(req.params.id)
 		.then(location => res.json(location.serialize()))
 		.catch(error => {
@@ -47,7 +47,7 @@ router.post("/", jwtAuth, jsonParser, (req, res) => {
 	});
 
 	Locations.create({
-		// user: req.user.id,
+		createdBy: req.body.createdBy,
 		title: req.body.title,
 		image: req.body.image,
 		description: req.body.description,
