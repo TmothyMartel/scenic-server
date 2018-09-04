@@ -7,6 +7,7 @@ const router = express.Router();
 const jsonParser = bodyParser.json();
 
 const { Locations } = require("./models");
+const { User } = require("../users/models");
 
 const jwtAuth = passport.authenticate("jwt", { session: false });
 
@@ -28,10 +29,39 @@ router.get("/", jwtAuth, (req, res) => {
 
 router.get("/:id", jwtAuth, (req, res) => {
 	Locations.findById(req.params.id)
+		.populate("createdBy")
 		.then(location => res.json(location.serialize()))
 		.catch(error => {
 			console.error(error);
-			res.status.json({ message: "internal server error" });
+			res.status(500).json({ message: "internal server error" });
+		});
+});
+
+router.get("/createdByUser", jwtAuth, (req, res) => {
+	Locations.find({ createdBy: req.user.id })
+		.limit(10)
+		.then(locations => {
+			res.json({
+				locations: locations.map(location => location.serialize())
+			});
+		})
+		.catch(error => {
+			console.error(error);
+			res.status(500).json({ message: "internal server error" });
+		});
+});
+
+router.get("/favorites", jwtAuth, (req, res) => {
+	User.findById(req.user.id)
+		.populate("locations")
+		.then(user => {
+			res.json({
+				location: user.favorites.map(location => location.serialize())
+			});
+		})
+		.catch(error => {
+			console.error(error);
+			res.status(500).json({ message: "internal server error" });
 		});
 });
 
@@ -45,9 +75,9 @@ router.post("/", jwtAuth, jsonParser, (req, res) => {
 			return res.status(400).send(message);
 		}
 	});
-
+	console.log("user", req.user.id);
 	Locations.create({
-		createdBy: req.body.createdBy,
+		createdBy: req.user.id,
 		title: req.body.title,
 		image: req.body.image,
 		description: req.body.description,
@@ -55,6 +85,28 @@ router.post("/", jwtAuth, jsonParser, (req, res) => {
 		photoTips: req.body.photoTips
 	})
 		.then(location => res.status(201).json(location.serialize()))
+		.catch(error => {
+			console.error(error);
+			res.status(500).json({ message: "Internal server error" });
+		});
+});
+
+router.post("/favorites/:id", jwtAuth, (req, res) => {
+	User.findById(req.user.id)
+		.then(user => {
+			//check if loction is already in favorites
+			let locationId = req.params.id;
+			const found = user.favorites.some(
+				index => index.toString() === locationId
+			);
+			if (!found) {
+				user.favorites.push(req.params.id);
+				return user.save();
+			} else {
+				console.log("already there");
+			}
+		})
+		.then(user => res.status(204).end())
 		.catch(error => {
 			console.error(error);
 			res.status(500).json({ message: "Internal server error" });

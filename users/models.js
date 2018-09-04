@@ -17,16 +17,29 @@ const UserSchema = mongoose.Schema({
   name: { type: String, default: "" },
   email: { type: String, required: true },
   about: { type: String },
-  imageUrl: { type: String, default: defaultImage }
+  imageUrl: { type: String, default: defaultImage },
+  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Location" }]
+});
+
+UserSchema.pre("find", function(next) {
+  this.populate("favorites");
+  next();
+});
+
+UserSchema.pre("findById", function(next) {
+  this.populate("favorites");
+  next();
 });
 
 UserSchema.methods.serialize = function() {
   return {
+    id: this._id,
     username: this.username || "",
     email: this.email,
     name: this.name || "",
     about: this.about || "",
-    imageUrl: this.imageUrl
+    imageUrl: this.imageUrl,
+    favorites: this.favorites
   };
 };
 

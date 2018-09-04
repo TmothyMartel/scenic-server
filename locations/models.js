@@ -22,9 +22,7 @@ const LocationSchema = mongoose.Schema({
 		longitude: { type: Number }
 	},
 	photoTips: [{ type: String }],
-	createdBy: {
-		type: String
-	}
+	createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 });
 
 LocationSchema.methods.serialize = function() {
@@ -35,7 +33,7 @@ LocationSchema.methods.serialize = function() {
 		image: this.image,
 		coordinates: this.coordinates,
 		photoTips: this.photoTips || [],
-		createdBy: this.createdBy
+		createdBy: this.createdBy.username
 	};
 };
 
