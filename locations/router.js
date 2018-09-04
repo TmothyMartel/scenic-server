@@ -53,12 +53,13 @@ router.get("/createdByUser", jwtAuth, (req, res) => {
 
 router.get("/favorites", jwtAuth, (req, res) => {
 	User.findById(req.user.id)
-		.populate("locations")
-		.then(user => {
-			res.json({
-				location: user.favorites.map(location => location.serialize())
-			});
-		})
+		//.populate("favorites")
+		.then(user => console.log(user.favorites))
+		// .then(user => {
+		// 	res.json({
+		// 		locations: user.favorites.map(location => location.serialize())
+		// 	});
+		// })
 		.catch(error => {
 			console.error(error);
 			res.status(500).json({ message: "internal server error" });

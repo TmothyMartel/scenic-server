@@ -21,15 +21,15 @@ const UserSchema = mongoose.Schema({
   favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Location" }]
 });
 
-UserSchema.pre("find", function(next) {
-  this.populate("favorites");
-  next();
-});
+// UserSchema.pre("find", function(next) {
+//   this.populate("favorites");
+//   next();
+// });
 
-UserSchema.pre("findById", function(next) {
-  this.populate("favorites");
-  next();
-});
+// UserSchema.pre("findById", function(next) {
+//   this.populate("favorites");
+//   next();
+// });
 
 UserSchema.methods.serialize = function() {
   return {
