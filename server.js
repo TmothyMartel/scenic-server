@@ -1,6 +1,7 @@
 "use strict";
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const passport = require("passport");
@@ -19,6 +20,12 @@ const app = express();
 // Logging
 app.use(morgan("common"));
 app.use(express.static("public"));
+//enabling CORS
+app.use(
+  cors({
+    origin: DATABASE_URL
+  })
+);
 
 // CORS
 app.use(function(req, res, next) {
@@ -98,6 +105,5 @@ if (require.main === module) {
 // if (require.main === module) {
 //   runServer(TEST_DATABASE_URL).catch(err => console.error(err));
 // }
-
 
 module.exports = { app, runServer, closeServer };
