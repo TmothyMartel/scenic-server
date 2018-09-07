@@ -1,7 +1,7 @@
 "use strict";
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
+// const cors = require("cors");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const passport = require("passport");
@@ -23,12 +23,9 @@ app.use(express.static("public"));
 // //enabling CORS
 // app.use(cors());
 
-// CORS
+CORS;
 app.use(function(req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://scenic-client.herokuapp.com/"
-  );
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
   if (req.method === "OPTIONS") {
